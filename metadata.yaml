@@ -1,0 +1,28 @@
+name: pcf-operator
+display-name: 5G PCF operator
+summary: 5G PCF operator
+description: 5G PCF operator
+
+containers:
+  pcf:
+    resource: pcf-image
+    mounts:
+      - storage: pcf-volume
+        location: /etc/pcf/
+
+resources:
+  pcf-image:
+    type: oci-image
+    description: OCI image for 5G pcf
+    upstream-source: omecproject/5gc-pcf:master-bcbdeb0
+
+storage:
+  pcf-volume:
+    type: filesystem
+    minimum-size: 1M
+
+requires:
+  database:
+    interface: mongodb_client
+  nrf:
+    interface: nrf
